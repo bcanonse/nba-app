@@ -12,7 +12,7 @@ interface TeamsDao {
     suspend fun getTeams(): List<TeamsEntity>
 
     @Query("SELECT * FROM teams WHERE id = :id")
-    suspend fun getTeamsById(id: Int): TeamsEntity
+    suspend fun getTeamsById(id: Int): TeamsEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertTeams(teams: List<TeamsEntity>)

@@ -10,6 +10,7 @@ interface TeamsRepository {
     suspend fun getTeams(): Result<List<Teams>>
 }
 
+//TOdO: Validar cuando hay exception en la red devolver datos de base de datos
 class TeamsRepositoryImpl(
     private val remoteTeamsDataSource: RemoteTeamsDataSource,
     private val localTeamsDataSource: LocalTeamsDataSource
