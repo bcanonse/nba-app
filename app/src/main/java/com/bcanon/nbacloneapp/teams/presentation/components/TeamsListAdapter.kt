@@ -3,8 +3,10 @@ package com.bcanon.nbacloneapp.teams.presentation.components
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
+import com.bcanon.nbacloneapp.R
 import com.bcanon.nbacloneapp.core.BaseListOnClickViewHolder
 import com.bcanon.nbacloneapp.core.DiffCallback
+import com.bcanon.nbacloneapp.core.utils.url
 import com.bcanon.nbacloneapp.databinding.ListItemTeamsBinding
 import com.bcanon.nbacloneapp.teams.domain.model.Teams
 
@@ -22,7 +24,10 @@ class TeamsListAdapter(
             with(binding) {
                 tvTeamName.text = item.name
                 tvConferenceTeam.text = item.conference
-
+                root.resources.getStringArray(R.array.logo_url_teams).getOrNull(item.id - 1)
+                    ?.let {
+                        ivLogoTeam.url(it)
+                    }
                 root.setOnClickListener {
                     listener(item)
                 }

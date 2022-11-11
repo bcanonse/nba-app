@@ -31,7 +31,10 @@ class TeamsFragment : Fragment() {
 
     //Methods private
     private fun onListenerItem(item: Teams) {
-
+        val action = TeamsFragmentDirections.actionTeamsFragmentToTeamDetailFragment(
+            teamId = item.id
+        )
+        findNavController().navigate(action)
     }
 
     private fun onBack() {

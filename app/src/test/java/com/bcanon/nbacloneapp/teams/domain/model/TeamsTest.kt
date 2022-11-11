@@ -33,6 +33,7 @@ class TeamsTest {
             name = "Atlanta",
             conference = "East",
             abbreviation = "Hawks",
+            fullName = "Atlanta Hawks"
         )
     }
 

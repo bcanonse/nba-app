@@ -27,6 +27,7 @@ class TeamsViewModelTest {
                 name = "Atlanta",
                 abbreviation = "Hawks",
                 conference = "East",
+                fullName = "Atlanta Hawks"
             )
         )
 

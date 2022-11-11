@@ -6,4 +6,6 @@
     <string name="players">Players</string>
     <string name="games">Games</string>
     <string name="games_logo">games_logo</string>
+    <string name="team_name">Team: %s</string>
+    <string name="team_conference">Conference: %s</string>
 </resources>

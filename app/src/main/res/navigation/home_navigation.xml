@@ -25,5 +25,23 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@+id/homeFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_teamsFragment_to_teamDetailFragment"
+            app:destination="@id/teamDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/teamDetailFragment"
+        android:name="com.bcanon.nbacloneapp.teams_detail.presentation.ui.TeamDetailFragment"
+        android:label="fragment_team_detail"
+        tools:layout="@layout/fragment_team_detail">
+        <action
+            android:id="@+id/action_teamDetailFragment_to_teamsFragment"
+            app:destination="@id/teamsFragment"
+            app:popUpTo="@+id/teamsFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="teamId"
+            android:defaultValue="0"
+            app:argType="integer" />
     </fragment>
 </navigation>

@@ -11,6 +11,7 @@ buildscript {
         coroutines_test_version = '1.6.1'
         espresso_version = '3.4.0'
         fragment_ktx_version = '1.5.4'
+        glide_version = '4.13.0'
         hilt_version = '2.43.2'
         junit_version = '4.13.2'
         junit_test_version = '1.1.3'

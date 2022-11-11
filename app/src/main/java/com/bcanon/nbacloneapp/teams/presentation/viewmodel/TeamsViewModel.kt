@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.bcanon.nbacloneapp.teams.domain.usecase.GetTeamsUseCase
 import com.bcanon.nbacloneapp.teams.presentation.ui.TeamsState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

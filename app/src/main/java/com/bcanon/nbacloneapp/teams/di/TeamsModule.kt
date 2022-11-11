@@ -9,20 +9,16 @@ import com.bcanon.nbacloneapp.teams.data.datasources.RemoteTeamsDataSourceImpl
 import com.bcanon.nbacloneapp.teams.data.network.TeamsApi
 import com.bcanon.nbacloneapp.teams.data.repositories.TeamsRepository
 import com.bcanon.nbacloneapp.teams.data.repositories.TeamsRepositoryImpl
-import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.create
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object TeamModule {
+object TeamsModule {
 
     @Singleton
     @Provides

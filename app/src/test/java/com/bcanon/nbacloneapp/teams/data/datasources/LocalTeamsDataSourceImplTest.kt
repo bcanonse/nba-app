@@ -15,6 +15,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
+/*
 //TOdo: Agregar testing.
 @RunWith(JUnit4::class)
 class LocalTeamsDataSourceImplTest() {
@@ -54,4 +55,4 @@ class LocalTeamsDataSourceImplTest() {
         // THEN - Same task is returned.
         coVerify { localDataSource.insertTeams(any()) }
     }
-}
+}*/

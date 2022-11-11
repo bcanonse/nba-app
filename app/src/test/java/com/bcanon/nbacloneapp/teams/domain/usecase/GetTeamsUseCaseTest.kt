@@ -19,6 +19,7 @@ class GetTeamsUseCaseTest {
                 name = "Atlanta",
                 abbreviation = "Hawks",
                 conference = "East",
+                fullName = "Atlanta Hawks"
             )
         )
         private val mockResultList = Result.success(mockList)
