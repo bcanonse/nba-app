@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <drawable name="ic_theme_logo">@drawable/ic_logo_nba_light</drawable>
+</resources>

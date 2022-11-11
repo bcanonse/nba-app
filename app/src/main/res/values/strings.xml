@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">NbaCloneApp</string>
+    <string name="teams_logo">teams_logo</string>
+    <string name="players_logo">players_logo</string>
+    <string name="teams">Teams</string>
+    <string name="players">Players</string>
+    <string name="games">Games</string>
+    <string name="games_logo">games_logo</string>
+</resources>

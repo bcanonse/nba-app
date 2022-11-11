@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Light colors   -->
+    <color name="blue_primary">#0055A5</color>
+    <color name="red_primary">#CA2B30</color>
+    <color name="pink_primary">#bf5d6c</color>
+    <color name="pink_white">#ffd7d5</color>
+    <color name="blue_white">#bfd4e8</color>
+
+    <!-- Dark colors   -->
+    <color name="blue_primary_dk">#010E1B</color>
+
+    <!-- Others   -->
+    <color name="white">#FFFFFFFF</color>
+</resources>
