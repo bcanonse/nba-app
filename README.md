@@ -9,6 +9,8 @@ Se usa el patrón de diseño recomendado por Google MVVM, y la micro-arquitectur
 ### Kit de herramientas del proyecto
 
 - Inyección de dependencias (Dagger Hilt)
+- Splash Screen.
+- SwipeRefreshLayout.
 - Base de datos local (Room y SQLite)
 - Navegación entre fragmentos (Navigation Jetpack)
 - Interfaz creada usando XML y Material Design.
