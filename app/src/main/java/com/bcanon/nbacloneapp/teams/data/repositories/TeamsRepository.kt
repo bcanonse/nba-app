@@ -5,12 +5,13 @@ import com.bcanon.nbacloneapp.teams.data.datasources.LocalTeamsDataSource
 import com.bcanon.nbacloneapp.teams.data.datasources.RemoteTeamsDataSource
 import com.bcanon.nbacloneapp.teams.domain.mapper.toDomain
 import com.bcanon.nbacloneapp.teams.domain.model.Teams
+import java.net.SocketTimeoutException
+import kotlin.coroutines.cancellation.CancellationException
 
 interface TeamsRepository {
     suspend fun getTeams(): Result<List<Teams>>
 }
 
-//TOdO: Validar cuando hay exception en la red devolver datos de base de datos
 class TeamsRepositoryImpl(
     private val remoteTeamsDataSource: RemoteTeamsDataSource,
     private val localTeamsDataSource: LocalTeamsDataSource
@@ -25,8 +26,16 @@ class TeamsRepositoryImpl(
             } else {
                 Result.success(localTeamsDataSource.getTeams().map { it.toDomain() })
             }
-        } catch (e: Exception) {
-            Result.failure(e)
+        } catch (exception: Exception) {
+            when (exception) {
+                is SocketTimeoutException,
+                is CancellationException -> {
+                    return Result.success(localTeamsDataSource.getTeams().map { it.toDomain() })
+                }
+                else -> {
+                    return Result.failure(exception)
+                }
+            }
         }
     }
 
