@@ -18,7 +18,7 @@ class TeamsListAdapter(
 
     inner class TeamsViewHolder(
         private var binding: ListItemTeamsBinding
-    ) : BaseListOnClickViewHolder<Teams>(binding.root) {
+    ) : BaseListOnClickViewHolder<Teams>(binding) {
 
         override fun bind(item: Teams, listener: (Teams) -> Unit) =
             with(binding) {

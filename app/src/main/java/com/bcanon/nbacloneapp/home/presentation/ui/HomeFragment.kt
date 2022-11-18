@@ -1,12 +1,11 @@
 package com.bcanon.nbacloneapp.home.presentation.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.bcanon.nbacloneapp.R
 import com.bcanon.nbacloneapp.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -31,7 +30,8 @@ class HomeFragment : Fragment() {
         }
 
         binding.mcvPlayers.setOnClickListener {
-
+            val action = HomeFragmentDirections.actionHomeFragmentToPlayersFragment()
+            findNavController().navigate(action)
         }
 
         binding.mcvGames.setOnClickListener {

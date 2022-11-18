@@ -14,6 +14,9 @@
             android:id="@+id/action_homeFragment_to_teamsFragment"
             app:destination="@id/teamsFragment"
             app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_homeFragment_to_playersFragment"
+            app:destination="@id/playersFragment" />
     </fragment>
     <fragment
         android:id="@+id/teamsFragment"
@@ -43,5 +46,16 @@
             android:name="teamId"
             android:defaultValue="0"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/playersFragment"
+        android:name="com.bcanon.nbacloneapp.players.presentation.ui.PlayersFragment"
+        android:label="fragment_players"
+        tools:layout="@layout/fragment_players">
+        <action
+            android:id="@+id/action_playersFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@+id/homeFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

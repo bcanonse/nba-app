@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Theme.App.Splash" parent="Theme.SplashScreen">
         <item name="android:windowSplashScreenBackground">?attr/colorPrimary</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/logo_nba_custom</item>
         <item name="windowSplashScreenAnimationDuration">300</item>
         <item name="postSplashScreenTheme">@style/Theme.NbaCloneApp</item>
+        <item name="android:windowSplashScreenBrandingImage">@string/app_name</item>
+
+        <!-- Status bar and Nav bar configs -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimary</item>
+        <item name="android:navigationBarColor">?attr/colorPrimary</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 </resources>

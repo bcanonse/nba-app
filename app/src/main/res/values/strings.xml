@@ -8,4 +8,6 @@
     <string name="games_logo">games_logo</string>
     <string name="team_name">Team: %s</string>
     <string name="team_conference">Conference: %s</string>
+    <string name="error_loading_data">Error loading data</string>
+    <string name="retry">Retry</string>
 </resources>
