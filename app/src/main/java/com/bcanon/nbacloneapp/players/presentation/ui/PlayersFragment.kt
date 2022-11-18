@@ -15,16 +15,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bcanon.nbacloneapp.databinding.FragmentPlayersBinding
-import com.bcanon.nbacloneapp.players.data.paging.RemotePresentationState
-import com.bcanon.nbacloneapp.players.data.paging.asRemotePresentationState
 import com.bcanon.nbacloneapp.players.domain.model.Players
 import com.bcanon.nbacloneapp.players.presentation.components.PlayersListPagingAdapter
 import com.bcanon.nbacloneapp.players.presentation.components.PlayersLoadStateAdapter
 import com.bcanon.nbacloneapp.players.presentation.viewmodel.PlayersViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -56,32 +56,27 @@ class PlayersFragment : Fragment() {
     }
 
     private fun FragmentPlayersBinding.bindState(
-        uiState: StateFlow<PlayersState>,
-        pagingData: Flow<PagingData<Players>>,
-        uiActions: (UiAction) -> Unit
+        pagingData: Flow<PagingData<Players>>
     ) {
-        rvPlayers.adapter = recyclerAdapter.withLoadStateHeaderAndFooter(
-            header = loadStateAdapter,
-            footer = PlayersLoadStateAdapter { recyclerAdapter.retry() }
-        )
-        bindSearch(
-            uiState = uiState,
-            onQueryChanged = uiActions
-        )
+        rvPlayers.apply {
+            adapter = recyclerAdapter.withLoadStateHeaderAndFooter(
+                header = loadStateAdapter,
+                footer = PlayersLoadStateAdapter { recyclerAdapter.retry() }
+            )
+            setHasFixedSize(true)
+            itemAnimator = null
+        }
+
+        bindSearch()
         bindList(
-            uiState = uiState,
-            pagingData = pagingData,
-            onScrollChanged = uiActions
+            pagingData = pagingData
         )
     }
 
-    private fun FragmentPlayersBinding.bindSearch(
-        uiState: StateFlow<PlayersState>,
-        onQueryChanged: (UiAction.Search) -> Unit
-    ) {
+    private fun FragmentPlayersBinding.bindSearch() {
         txtISearch.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_GO) {
-                updateRepoListFromInput(onQueryChanged)
+                updateRepoListFromInput()
                 true
             } else {
                 false
@@ -89,36 +84,27 @@ class PlayersFragment : Fragment() {
         }
         txtISearch.setOnKeyListener { _, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                updateRepoListFromInput(onQueryChanged)
+                updateRepoListFromInput()
                 true
             } else {
                 false
             }
         }
-
-        lifecycleScope.launch {
-            uiState
-                .map { it.query }
-                .distinctUntilChanged()
-                .collect(txtISearch::setText)
-        }
     }
 
-    private fun FragmentPlayersBinding.updateRepoListFromInput(onQueryChanged: (UiAction.Search) -> Unit) {
+    private fun FragmentPlayersBinding.updateRepoListFromInput() {
         txtISearch.text.trim().let {
             if (it.isNotEmpty()) {
                 rvPlayers.scrollToPosition(0)
-                onQueryChanged(UiAction.Search(query = it.toString()))
+                viewModel.searchPlayer(query = it.toString())
+                txtISearch.clearFocus()
             }
         }
     }
 
     private fun FragmentPlayersBinding.bindList(
-        uiState: StateFlow<PlayersState>,
         pagingData: Flow<PagingData<Players>>,
-        onScrollChanged: (UiAction.Scroll) -> Unit
     ) {
-//        retryButton.setOnClickListener { recyclerAdapter.retry() }
         fabUpHeader.setOnClickListener {
             rvPlayers.smoothScrollToPosition(START_POSITION)
         }
@@ -131,36 +117,20 @@ class PlayersFragment : Fragment() {
             recyclerAdapter.refresh()
         }
 
+        lifecycleScope.launch { viewModel.currentQuery.collect(txtISearch::setText) }
+
         rvPlayers.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 fabUpHeader.isVisible = dy < START_POSITION
 
-                if (dy != 0) onScrollChanged(UiAction.Scroll(currentQuery = uiState.value.query))
+                val scrollPosition =
+                    (recyclerView.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
+                swPlayers.isEnabled = scrollPosition == START_POSITION
             }
         })
-        val notLoading = recyclerAdapter.loadStateFlow
-            .asRemotePresentationState()
-            .map { it == RemotePresentationState.PRESENTED }
-
-        val hasNotScrolledForCurrentSearch = uiState
-            .map { it.hasNotScrolledForCurrentSearch }
-            .distinctUntilChanged()
-
-        val shouldScrollToTop = combine(
-            notLoading,
-            hasNotScrolledForCurrentSearch,
-            Boolean::and
-        )
-            .distinctUntilChanged()
 
         lifecycleScope.launch {
             pagingData.collectLatest(recyclerAdapter::submitData)
-        }
-
-        lifecycleScope.launch {
-            shouldScrollToTop.collect { shouldScroll ->
-                if (shouldScroll) rvPlayers.scrollToPosition(0)
-            }
         }
 
         lifecycleScope.launch {
@@ -217,9 +187,7 @@ class PlayersFragment : Fragment() {
         )
 
         binding.bindState(
-            uiState = viewModel.state,
-            pagingData = viewModel.pagingDataFlow,
-            uiActions = viewModel.accept
+            pagingData = viewModel.players,
         )
 
 
