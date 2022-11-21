@@ -1,5 +1,6 @@
 package com.bcanon.nbacloneapp.di
 
+import com.bcanon.nbacloneapp.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,10 +26,10 @@ object NetworkModule {
     fun provideOkHttpClient(logger: HttpLoggingInterceptor): OkHttpClient =
         OkHttpClient.Builder().addNetworkInterceptor {
             val requestBuilder = it.request().newBuilder()
-            requestBuilder.header("X-RapidAPI-Host", "free-nba.p.rapidapi.com")
+            requestBuilder.header("X-RapidAPI-Host", BuildConfig.HOST)
             requestBuilder.header(
                 "X-RapidAPI-Key",
-                "5a735d970emsh29973caafa4e2d8p1a2adbjsnf7a7a6972a24"
+                BuildConfig.API_KEY
             )
             it.proceed(requestBuilder.build())
         }.addInterceptor(logger)
@@ -42,7 +43,7 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient, moshi: MoshiConverterFactory): Retrofit =
-        Retrofit.Builder().baseUrl("https://free-nba.p.rapidapi.com/")
+        Retrofit.Builder().baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(moshi)
             .client(okHttpClient)
             .build()
