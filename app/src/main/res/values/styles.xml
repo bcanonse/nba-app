@@ -17,4 +17,18 @@
     <style name="ThemeOverlay.App.Card" parent="">
         <item name="cardElevation">24dp</item>
     </style>
+
+    <!-- Floating Action Button Style   -->
+    <style name="Widget.App.FloatingActionButton" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.FloatingActionButton</item>
+        <item name="shapeAppearanceOverlay">
+            ?attr/shapeAppearanceSmallComponent
+        </item>
+    </style>
+
+    <style name="ThemeOverlay.App.FloatingActionButton" parent="">
+        <item name="colorSecondary">?attr/colorSecondary</item>
+        <item name="colorOnSecondary">?attr/colorOnSecondary</item>
+        <item name="colorOnSurface">?attr/colorOnSurface</item>
+    </style>
 </resources>

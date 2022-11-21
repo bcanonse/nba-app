@@ -4,9 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.bcanon.nbacloneapp.databinding.FragmentTeamsBinding
 import com.bcanon.nbacloneapp.teams.domain.model.Teams
 import com.bcanon.nbacloneapp.teams.presentation.components.TeamsListAdapter
@@ -38,7 +40,7 @@ class TeamsFragment : Fragment() {
     }
 
     private fun onBack() {
-        binding.toolbar.setNavigationOnClickListener {
+        binding.ivArrowBack.setOnClickListener {
             findNavController().navigateUp()
         }
     }
@@ -59,12 +61,25 @@ class TeamsFragment : Fragment() {
     private fun onInitRecyclerView() {
         binding.apply {
             rvTeams.adapter = recyclerAdapter
+            rvTeams.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    fabUpHeader.isVisible = dy < START_POSITION
+                }
+            })
         }
     }
 
     private fun onSwipeRefresh() {
         binding.swTeams.setOnRefreshListener {
             viewModel.getTeams()
+        }
+    }
+
+    private fun onUpHeader() {
+        with(binding) {
+            fabUpHeader.setOnClickListener {
+                rvTeams.smoothScrollToPosition(START_POSITION)
+            }
         }
     }
 
@@ -86,10 +101,15 @@ class TeamsFragment : Fragment() {
         onInitRecyclerView()
         onSwipeRefresh()
         onBack()
+        onUpHeader()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        private const val START_POSITION = 0
     }
 }

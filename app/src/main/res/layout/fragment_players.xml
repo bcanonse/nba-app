@@ -21,7 +21,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="spread_inside"
-        app:marginLeftSystemWindowInsets="true" />
+        app:marginLeftSystemWindowInsets="true"
+        app:tint="?attr/colorPrimaryVariant" />
 
     <TextView
         android:id="@+id/tvPlayers"
@@ -89,6 +90,7 @@
         android:layout_margin="@dimen/size_16dp"
         android:contentDescription="@string/app_name"
         android:visibility="gone"
+        app:fabSize="mini"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_baseline_arrow_upward_24" />

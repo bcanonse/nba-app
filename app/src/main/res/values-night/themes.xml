@@ -3,12 +3,12 @@
     <style name="Theme.NbaCloneApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimaryDark">@color/blue_primary_dk</item>
-        <item name="colorPrimaryVariant">@color/blue_primary</item>
+        <item name="colorPrimaryVariant">?attr/colorOnSurface</item>
         <item name="colorOnPrimary">@color/blue_primary_dk</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/red_primary</item>
         <item name="colorSecondaryVariant">@color/blue_primary</item>
-        <item name="colorOnSecondary">@color/blue_primary</item>
+        <item name="colorOnSecondary">?attr/colorOnSurface</item>
 
         <item name="android:textColorPrimary">?attr/colorOnSurface</item>
         <!-- Status bar color. -->

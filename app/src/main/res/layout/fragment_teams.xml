@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,38 +11,44 @@
     tools:context=".teams.presentation.ui.TeamsFragment"
     tools:ignore="RtlSymmetry">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/ivArrowBack"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:liftOnScroll="true"
-        app:liftOnScrollTargetViewId="@id/swTeams">
+        android:layout_margin="@dimen/size_16dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/ic_baseline_arrow_back_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread_inside"
+        app:marginLeftSystemWindowInsets="true"
+        app:tint="?attr/colorPrimaryVariant" />
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="80dp"
-            android:paddingStart="@dimen/size_16dp"
-            app:layout_scrollFlags="scroll|enterAlways|snap"
-            app:navigationIcon="@drawable/ic_baseline_arrow_back_24"
-            app:title="@string/teams"
-            app:titleTextAppearance="?attr/textAppearanceHeadline4"
-            app:titleTextColor="@android:color/white" />
-
-    </com.google.android.material.appbar.AppBarLayout>
+    <TextView
+        android:id="@+id/tvPlayers"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/size_16dp"
+        android:gravity="start"
+        android:text="@string/teams"
+        android:textAppearance="?attr/textAppearanceHeadline4"
+        app:layout_constraintBottom_toBottomOf="@+id/ivArrowBack"
+        app:layout_constraintStart_toEndOf="@+id/ivArrowBack"
+        app:layout_constraintTop_toTopOf="@id/ivArrowBack"
+        app:layout_constraintVertical_chainStyle="spread_inside" />
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swTeams"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
-        app:swipeRefreshLayoutProgressSpinnerBackgroundColor="?attr/colorPrimary">
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPlayers">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvTeams"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:paddingHorizontal="@dimen/size_12dp"
             android:paddingBottom="@dimen/size_8dp"
@@ -53,4 +59,16 @@
             tools:listitem="@layout/list_item_teams" />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabUpHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/size_16dp"
+        android:contentDescription="@string/app_name"
+        android:visibility="gone"
+        app:fabSize="mini"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_baseline_arrow_upward_24" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
